@@ -319,3 +319,57 @@ console.log(removed); // []
 removed = colors.splice(1, 1, "red", "purple");
 console.log(colors); // [ 'green', 'red', 'purple', 'orange', 'blue' ]
 console.log(removed); // [ 'yellow' ]
+
+// 위치 메서드 -> indexOf(), lastIndexOf()
+// 찾아낸 데이터(타입까지 일치하게)의 인덱스를 반환 / 못찾았을 때는 -1 반환
+// 매개변수 두개 -> 첫번째(검색할 데이터), 두번째(검색을 시작할 인덱스)
+// indexOf() -> 배열의 처음(인덱스 0)에서 마지막까지 검색
+// lastIndexOf() -> 배열의 마지막에서 처음까지 검색
+var numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+
+console.log(numbers.indexOf(4)); // 3
+console.log(numbers.lastIndexOf(4)); // 5
+
+console.log(numbers.indexOf(4, 4)); // 5
+console.log(numbers.lastIndexOf(4, 4)); // 3
+
+var person = { name: "니콜라스" };
+var people = [{ name: "니콜라스" }];
+var morePeople = [person];
+
+console.log(people.indexOf(person)); // -1 (찾지못함)
+console.log(morePeople.indexOf(person)); // 0
+
+// 반복 메서드 - 배열의 모든 데이터에서 콜백 함수를 호출하고
+// 1. every() - 반환값이 전부 true이면 true를 반환
+// 2. filter() - 반환값이 true인 데이터를 새 배열에 저장하여 반환
+// 3. forEach() - 반환값이 없음
+// 4. map() - 결과를 새 배열에 저장하여 반환
+// 5. some() - 반환 값 중 하나라도 true 이면 true를 반환
+var numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+
+var everyResult = numbers.every(function (item, index, array) {
+  return item > 2; // 데이터가 2를 초과하면 true를 반환하는 콜백함수
+});
+console.log(everyResult); // false
+
+var someResult = numbers.some(function (item, index, array) {
+  return item > 2;
+});
+console.log(someResult); // true
+
+var filterResult = numbers.filter((item, index, array) => {
+  return item > 2;
+});
+console.log(filterResult); // [ 3, 4, 5, 4, 3 ]
+
+var mapResult = numbers.map((item) => {
+  return item * 2;
+});
+console.log(mapResult); // [ 2, 4, 6, 8, 10, 8, 6, 4, 2]
+
+// forEach() 메서드는 반환값이 없으며
+// 기본적으로 해당 배열에서 for 문을 실행한 것과 마찬가지
+numbers.forEach((item) => {
+  // 코드
+});
