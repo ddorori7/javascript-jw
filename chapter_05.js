@@ -373,3 +373,26 @@ console.log(mapResult); // [ 2, 4, 6, 8, 10, 8, 6, 4, 2]
 numbers.forEach((item) => {
   // 코드
 });
+
+// 감소 메서드 - reduce(), reduceRight()
+// 배열을 순회하며 콜백함수를 실행하고 값을 하나 만들어 반환
+// reduce() -> 배열의 첫번째 데이터에서 시작
+// reduceRight() -> 배열의 마지막 데이터에서 시작
+// 매개변수 두개
+// 첫번째 매개변수 - 콜백 함수
+// 두번째 매개변수 - 감소 작업을 시작할 초기값
+// 콜백함수가 넘겨받는 매개변수는 이전 값, 현재 값, 현재 값의 인덱스, 현재 배열
+// 콜백함수를 처음 호출하는 데이터는 인덱스 1
+var values = [1, 2, 3, 4, 5];
+var sum = values.reduce(function (prev, cur, index, array) {
+  return prev + cur;
+});
+console.log(sum); // 15
+// 콜백함수를 처음 실행할 때 prev는 1이고 cur는 2,
+// 두번째 prev는 3(1+2)이고 cur는 3(인덱스 2)
+
+var sum = values.reduceRight(function (prev, cur, index, array) {
+  return prev + cur;
+});
+console.log(sum); // 15
+// 콜백함수를 처음 실행할 때 prev는 5이고 cur는 4,
