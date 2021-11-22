@@ -123,7 +123,7 @@ if (Array.isArray(colors)) {
 // 변환 메서드
 var colors = ["red", "blue", "green"];
 console.log(colors.toString()); // red,blue,green
-console.log(colors.valueOf()); // [ 'red', 'blue', 'green' ]
+console.log("valueOf:", colors.valueOf()); // [ 'red', 'blue', 'green' ]
 console.log(colors); // [ 'red', 'blue', 'green' ]
 
 // toLocaleString
@@ -145,8 +145,8 @@ var person2 = {
 };
 var people = [person1, person2];
 console.log(people);
-console.log(people.toString);
-console.log(people.toLocaleString);
+console.log(people.toString());
+console.log(people.toLocaleString());
 // toLocaleString() -> 특정 언어에 맞는 형식으로 반환
 // 출처: https://gocoder.tistory.com/1442 [고코더 IT Express]
 
