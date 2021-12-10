@@ -396,3 +396,100 @@ var sum = values.reduceRight(function (prev, cur, index, array) {
 });
 console.log(sum); // 15
 // 콜백함수를 처음 실행할 때 prev는 5이고 cur는 4,
+
+// Date 타입
+var now = new Date();
+
+// Date.parse() 메서드
+// 매개변수로 날짜를 표현하는 문자열을 받고 해당 문자열을 날짜의 밀리초 표현으로 변환
+var someDate = new Date(Date.parse("May 25, 2004"));
+console.log(someDate); // 2004-05-24T15:00:00.000Z
+
+// Date.UTC() 예시
+// 2000년 1월 1일 0시
+var y2k = new Date(Date.UTC(2000, 0));
+console.log(y2k); // 2000-01-01T00:00:00.000Z
+// 2005년 5월 5일 오후 5시 55분 55초(GMT)
+var allFives = new Date(Date.UTC(2005, 4, 5, 17, 55, 55)); //(년,월(0이 1월),일,시,분,초)
+console.log(allFives); // 2005-05-05T17:55:55.000Z
+
+// now() 메서드
+// 현재 시각을 밀리초 표현으로 반환 -> 코드의 실행 시간을 측정하는 프로파일링 작업을 할 때
+var start = Date.now(); // 시작시간
+function doSomething() {}
+doSomething(); // 실행시간을 잴 함수
+var stop = Date.now(),
+  result = stop - start;
+console.log(result);
+// Date.now() 메서드를 지원하지 않는 경우에는  +new Date() 를 써서 Date객체를 숫자로 변환하여 사용할 수 있음
+
+var date1 = new Date(2007, 0, 1); // 1월 1일
+var date2 = new Date(2007, 1, 1); // 2월 1일
+console.log(date1 < date2); // true
+
+// RegExp 타입 -> 정규표현식 지원
+// var expression = /pattern/flags;
+// pattern - 패턴 부분에 정규표현식을 나타내는 식
+// flags - 각 정규 표현식은 플래그를 통해 해당 정규표현식이 어덯게 동작할지
+// flags - g(전역모드), i(대소문자 비구분), m(여러줄 모드)
+
+// (정규표현식)
+var pattern1 = /at/g; // 모든 "at"에 일치 (정규표현식)
+var pattern2 = /[bc]at/i; // "bat"이나 "cat" 중 처음 나온 것에 일치, 대소문자 구분 없음
+var pattern3 = /.at/gi; // "at"으로 끝나는 세 글자에 모두 일치, 대소문자 구분 없음
+
+// 다른 언어의 정규 표현식과 마찬가지로 '메타문자'를 패턴에 쓸 때는 반드시 이스케이프(\) 해야함.
+// 메타문자 -> ([{\^$|?*+.}])
+var pattern2 = /\[bc\]at/i; // 처음 나온 "[bc]at"에 일치, 대소문자 구분 없음
+var pattern4 = /\.at/gi; // ".at"에 모두 일치, 대소문자 구분 없음
+
+var pattern1 = /[bc]at/i; // "bat"이나 "cat" 중 처음 나온 것에 일치, 대소문자 구분 없음
+var pattern2 = new RegExp("[bc]at", "i"); // pattern1과 같지만 생성자를 쓰지는 않음
+// RegExp 생성자에 메타 문자를 쓸 때는 반드시 이중으로 이스케이프(\\)
+
+// 리터럴로 생성한 정규표현식이 RegExp 생성자로 생성한 정규표현식과 정확히 같지는 않음
+// 리터럴로 생성한 정규표현식은 항상 같은 RegExp 인스턴스를 공유하지만,
+// RegExp 생성자는 호출할 때마다 새로운 인스턴스를 생성
+var re = null,
+  i;
+for (i = 0; i < 10, i++; ) {
+  re = /cat/g;
+  re.test("catastrophe");
+}
+for (i = 0; i < 10, i++; ) {
+  re = new RegExp("cat", "g");
+  re.test("catastrophe");
+}
+
+// 정규표현식 인스턴스 메서드
+// exec() 메서드 - 그룹을 캡처할 의도로 만들어진 메서드
+// 패턴을 테스트할 문자열을 매개변수로 받고, 패턴에 일치하는 문자열 배열을 반환하며
+// 일치하는 부분을 찾을 수 없을 때는 null을 반환
+var text = "mom and dad and baby";
+var pattern = /mom( and dad( and baby)?)?/gi;
+// 패턴에 캡쳐그룹이 두개
+// 가장 안쪽 그룹은 "and baby"에 일치
+// 그 바깥은 "and baby" 또는 "and dad and baby"
+var matches = pattern.exec(text);
+console.log(matches.index); // 0
+console.log(matches.input); // mom and dad and baby
+console.log(matches[0]); // mom and dad and baby
+console.log(matches[1]); //  and dad and baby
+console.log(matches[2]); //  and baby
+// exec()를 호출하면 우선 일치하는 문자열이 검색
+// 문자열 전체가 패턴에 일치하므로 matches 배열의 index프로퍼티는 0
+// matches 배열의 첫번째 데이터는 문자열 전체
+// 두번째 데이터는 첫번째 캡처그룹
+// 세번째 데이터는 두번째 캡처그룹
+
+// text() 메서드 - 문자열이 패턴에 일치하면 true
+var text = "000-00-0000";
+var pattern = /\d{3}-\d{2}-\d{4}/;
+if (pattern.test(text)) {
+  console.log("패턴이 일치합니다");
+}
+
+// toString, toLocaleString은 리터럴 형식을 반환
+var pattern = new RegExp("\\[bc\\]at", "gi");
+console.log(pattern.toString()); // /\[bc\]at/gi
+console.log(pattern.toLocaleString()); // /\[bc\]at/gi
